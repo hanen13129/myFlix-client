@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -12,7 +13,7 @@ export class MainView extends React.Component {
                 { _id: 2, Title: " Titanic ", Description: "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.", Imagepath: "https://upload.wikimedia.org/wikipedia/en/1/19/Titanic_%28Official_Film_Poster%29.png" },
                 { _id: 3, Title: "Jurassic Park", "Description": "A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.", Imagepath: "https://images-na.ssl-images-amazon.com/images/I/8142L+TQEyL.jpg" }
             ],
-            // selectedMovie: null
+             selectedMovie: null
         };
     }
     setSelectedMovie(newSelectedMovie) {
