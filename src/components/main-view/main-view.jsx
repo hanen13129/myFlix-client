@@ -1,50 +1,92 @@
 import React from 'react';
 import axios from 'axios';
+import "./main-view.scss";
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from "../registration-view/registration-view";
+import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
+
 
 export class MainView extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            movies: [
-                { _id: 1, Title: " The Notebook ", Description: " A poor yet passionate young man falls in love with a rich young woman, giving her a sense of freedom, but they are soon separated because of their social differences. ", Imagepath: " https://upload.wikimedia.org/wikipedia/en/8/86/Posternotebook.jpg " },
-                { _id: 2, Title: " Titanic ", Description: "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.", Imagepath: "https://upload.wikimedia.org/wikipedia/en/1/19/Titanic_%28Official_Film_Poster%29.png" },
-                { _id: 3, Title: "Jurassic Park", "Description": "A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.", Imagepath: "https://images-na.ssl-images-amazon.com/images/I/8142L+TQEyL.jpg" }
-            ],
-             selectedMovie: null
-        };
+            movies: [],
+      selectedMovie: null,
+      user: null
+    }
+  }
+
+  componentDidMount(){
+    axios.get('https://movieapi-morkos.herokuapp.com/movies')
+      .then(response => {
+        this.setState({
+          movies: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
     setSelectedMovie(newSelectedMovie) {
         this.setState({
             selectedMovie: newSelectedMovie
         });
     }
+      /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
+
+  onLoggedIn(user) {
+    this.setState({
+      user
+    });
+  }
     render() {
-        const { movies, selectedMovie } = this.state;
+        const { movies, selectedMovie, user } = this.state;
 
-        if (selectedMovie) return <MovieView movie={selectedMovie} />;
+   /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details 
+    are *passed as a prop to the LoginView*/
+    if(!user) return  <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+    // Before the movies have been loaded
+    if (movies.length === 0) return <div className="main-view" />;
 
-        return (
-            <div className="main-view">
-                {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => {
-                        this.setSelectedMovie(newSelectedMovie);
-                    }} />
-                    : movies.map(
-                        movie => (
-                            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => {
-                                this.setSelectedMovie(movie)
-                            }} />
-                        ))
-                }
-            </div>
-        );
+    return (
+        <div className="main-view">
+          <Navbar expand="lg" bg="#162b48" variant="dark" className="mainNavbar">
+          <Container>
+          <Navbar.Brand href="#myflix">My Flix</Navbar.Brand>
+              <Nav className="me-auto">
+              <Nav.Link href="#profile">Profile</Nav.Link>
+              <Nav.Link href="#update-profile">Update Profile</Nav.Link>
+              <Nav.Link href="#logout">Logout</Nav.Link>
+              </Nav>
+          </Container>
+          </Navbar>
+  
+          <Row className="main-view justify-content-md-center">
+          {selectedMovie? (
+            <Col md={8}>
+              <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+            </Col>
+          )
+          : movies.map((movie) => (
+            <Col md={3} key={movie._id}>
+              <MovieCard
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  this.setSelectedMovie(newSelectedMovie);
+                }}
+              />
+            </Col>
+          ))        
+        }
+        </Row>
+      </div>
+       );    
     }
-}
+  }
 
 
 
