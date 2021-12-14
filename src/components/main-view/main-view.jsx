@@ -1,52 +1,75 @@
-import React from 'react';
-import axios from 'axios';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import React from "react";
+import axios from "axios";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-export class MainView extends React.Component {
-
-    constructor() {
-        super();
-        this.state = {
-            movies: [
-                { _id: 1, Title: " The Notebook ", Description: " A poor yet passionate young man falls in love with a rich young woman, giving her a sense of freedom, but they are soon separated because of their social differences. ", Imagepath: " https://upload.wikimedia.org/wikipedia/en/8/86/Posternotebook.jpg " },
-                { _id: 2, Title: " Titanic ", Description: "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.", Imagepath: "https://upload.wikimedia.org/wikipedia/en/1/19/Titanic_%28Official_Film_Poster%29.png" },
-                { _id: 3, Title: "Jurassic Park", "Description": "A pragmatic paleontologist visiting an almost complete theme park is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.", Imagepath: "https://images-na.ssl-images-amazon.com/images/I/8142L+TQEyL.jpg" }
-            ],
-             selectedMovie: null
-        };
-    }
-    setSelectedMovie(newSelectedMovie) {
+import { LoginView } from "../login-view/login-view";
+import { RegistrationView } from "../registration-view/registration-view";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
+class MainView extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      movies: [],
+      selectedMovie: null,
+      user: null,
+    };
+  }
+  componentDidMount() {
+    axios
+      .get("https://movies-api-db.herokuapp.com/movies")
+      .then((response) => {
         this.setState({
-            selectedMovie: newSelectedMovie
+          movies: response.data,
         });
-    }
-    render() {
-        const { movies, selectedMovie } = this.state;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  /* When a movie is clicked, this function is involed and updates the state of the selectedMovie property to that movie*/
+  setSelectedMovie(movie) {
+    this.setState({
+      selectedMovie: movie,
+    });
+  }
+  /*When a user logs in, this function updates the user property in state to that particular user */
+  onLoggedIn(user) {
+    this.setState({
+      user,
+    });
+  }
+  onRegister(register) {
+    this.setState({
+      register,
+    });
+  }
+  render() {
+    const { movies, selectedMovie, user } = this.state;
+    if (!user)
+      return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
+    if (movies.length === 0) return <div className="main-view" />;
 
-        if (selectedMovie) return <MovieView movie={selectedMovie} />;
-
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
-
-        return (
-            <div className="main-view">
-                {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => {
-                        this.setSelectedMovie(newSelectedMovie);
-                    }} />
-                    : movies.map(
-                        movie => (
-                            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => {
-                                this.setSelectedMovie(movie)
-                            }} />
-                        ))
-                }
-            </div>
-        );
-    }
-}
-
-
-
-
-
+    return (
+        <Row className="main-view justify-content-md-center">
+          {selectedMovie 
+          ? (
+              <Col md={8}>
+                <MovieView movie={selectedMovie} onBackClick={(newSelectedMovie) => {this.setSelectedMovie(newSelectedMovie); }} />
+              </Col>
+            )
+          : (
+              <Col>
+                {movies.map((movie) => (
+                 <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
+                ))}
+              </Col>
+          )
+          }
+        </Row>
+    );
+  }
+};
+export default MainView;
