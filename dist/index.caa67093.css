@@ -1,4 +1,83 @@
 .my-flix {
-  color: steelblue;
+  color: #27abe8;
+}
+
+body {
+  background-color: #131313 !important;
+}
+
+.top-wrapper {
+  display: flow-root;
+}
+
+.logout-button {
+  float: right;
+}
+.row div {
+  margin-bottom: 15px;
+}
+
+.movie-description {
+  width: 100%;
+}
+.meta-text {
+  color: #cecece;
+  font-size: 14px;
+  font-style: italic;
+}
+.login-form, .register-form {
+  min-width: 500px;
+  padding: 25px;
+  border: 1px solid #c5c5c5;
+  border-radius: 15px;
+  text-align: left;
+  background-color: #fff;
+}
+
+.myFlix-logo {
+  padding-bottom: 25px;
+}
+
+.login-wrapper, .register-wrapper {
+  max-width: 650px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.btn-lg {
+  width: 100%;
+}
+
+hr.hr-text {
+  position: relative;
+  border: none;
+  height: 1px;
+  background: #b3b3b3;
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+hr.hr-text::before {
+  content: attr(data-content);
+  display: inline-block;
+  background: #fff;
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: #b3b3b3;
+  border-radius: 30rem;
+  padding: 15px 15px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.reg-btns {
+  text-align: center;
+}
+
+.btn-md {
+  width: 100%;
 }
 /*# sourceMappingURL=index.caa67093.css.map */
