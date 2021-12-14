@@ -1,21 +1,9 @@
-.loginNavbar {
-  background: #162b48;
-}
+.login-form {
+  min-width:500px;
+  padding:25px;
+  border:1px solid #c5c5c5;
+  border-radius: 15px;
+  text-align:left;
+  background-color:#fff;
 
-html,
-body,
-#loginCard > div {
-  background: #0095c4 !important;
-  height: 100%;
-}
-
-html,
-body,
-#loginContainer > div {
-  background: #0095c4 !important;
-  height: 100%;
-}
-
-body {
-  font-family: "Teko", sans-serif !important;
 }
