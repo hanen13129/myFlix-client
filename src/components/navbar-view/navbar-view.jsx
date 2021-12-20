@@ -1,37 +1,46 @@
-import React from "react";
-import { Navbar, Container, Nav, Button, NavItem } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { NavDropdown } from 'react-bootstrap';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import { useParams } from 'react-router';
+import logo from 'url:../../../public/myflix-logo.png';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
-import "./navbar-view.scss";
 
-export function NavBarView() {
-    const user = localStorage.getItem("user");
 
-    onLoggedOut = () => {
-        localStorage.clear();
-        window.open("/", "_self");
-    };
+export class NavBar extends React.Component {
 
-    return (
-        <Navbar className="navbar" variant="dark" expand="lg md" fixed="top">
-            <Container fluid>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse>
-                    <Nav className="me-auto navbar-menu">
-                        <Link to={`/users/${user}`}>
-                            <NavItem style={{ color: "white" }} href="">
-                                User Profile
-                            </NavItem>
-                        </Link>
-                        <NavItem style={{ color: "grey", paddingLeft: "25px" }}>
-                            <p>( Logged in as: <Link to={`/users/${user}`} >{user}</Link> )</p>
-                        </NavItem>
-                    </Nav>
-                    <Nav.Link className="d-flex">
-                        <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { this.onLoggedOut() }}>Logout</Button>
-                    </Nav.Link>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-    );
+  // Log out function
+ onLoggedOut() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  window.location.href = '/';
+  this.setState({
+    user: null
+  });
+}
+
+render () {
+  return (
+
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container>
+      <Navbar.Brand href="#home"><img className="myFlix-logo-nav" width={100} src={logo} alt="myFlix Logo" /></Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+      <Nav>
+        <Nav.Link className="me-auto" href="">Hi Username</Nav.Link>
+        <NavDropdown title='' id="collasible-nav-dropdown">
+            <NavDropdown.Item href="/users/">Account Details</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item></NavDropdown.Item>
+            <Button variant="link" onClick={() => { this.onLoggedOut() }}>Logout</Button>
+          </NavDropdown>
+      </Nav>
+      </Navbar.Collapse>
+      </Container>
+    </Navbar>
+      );
+    }
 }
