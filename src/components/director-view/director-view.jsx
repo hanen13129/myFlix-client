@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 
-
+ 
 
 export class DirectorView extends React.Component {
 

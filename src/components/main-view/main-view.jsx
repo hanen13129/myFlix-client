@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Col from 'react-bootstrap/Col'; 
 
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
