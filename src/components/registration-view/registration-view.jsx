@@ -33,16 +33,16 @@ export function RegistrationView(props) {
 
   return (
     <div className="register-wrapper">
-    <img className="myFlix-logo" width={400} src={logo} alt="logo" />
-    <Form className="register-form">
-      <Form.Group>
-        <Form.Label>
-          Username:
-        </Form.Label>
-        <Form.Control
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+      <img className="myFlix-logo" width={400} src={logo} alt="logo" />
+      <Form className="register-form">
+        <Form.Group>
+          <Form.Label>
+            Username:
+          </Form.Label>
+          <Form.Control
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
         <Form.Group>

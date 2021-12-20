@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './login-view.scss';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
-
 import Button from 'react-bootstrap/Button';
 import logo from 'url:../../../public/myflix-logo.png';
 import axios from 'axios';
+
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -13,24 +13,24 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://myflix-jonathon.herokuapp.com/login', {
-        Username: username,
-        Password: password
-      })
-      .then(response => {
-        const data = response.data;
-        props.onLoggedIn(data);
-      })
-      .catch(e => {
-        console.log('no such user exists')
-      });
+    axios.post('https://movies-api-db.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+    .then(response => {
+      const data = response.data;
+      props.onLoggedIn(data);
+    })
+    .catch(e => {
+      console.log('no such user exists')
+    });
   };
 
   return (
     <div className="login-wrapper">
     <img className="myFlix-logo" width={400} src={logo} alt="logo" />
     <Form className="login-form">
-    <Form.Group controleid="formUsername">
+      <Form.Group controleid="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
       </Form.Group>
@@ -44,14 +44,12 @@ export function LoginView(props) {
       <Button href="/register" variant="secondary" size="lg">Register here</Button>
       </div>
     </Form>
-
     </div>
   );
 }
 LoginView.propTypes = {
-    user: PropTypes.shape ({
-      username: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired
-    }),
-  
-  };
+  user: PropTypes.shape ({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired
+  }),
+};
