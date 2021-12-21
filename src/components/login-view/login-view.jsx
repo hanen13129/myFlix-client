@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-
 import PropTypes from 'prop-types';
-import { Form, Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import logo from 'url:../../../public/myflix-logo.png';
 import axios from 'axios';
-import './login-view.scss';
 
+import './login-view.scss';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');

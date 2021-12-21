@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 
 import {Row, Col, Button, Container, Card } from 'react-bootstrap';
 import axios from 'axios';

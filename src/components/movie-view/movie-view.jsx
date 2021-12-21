@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -37,11 +37,8 @@ export class MovieView extends React.Component {
       })
   }
 
-  App(){
-    const notify = () => toast("Wow so easy !");}
-
   render() {
-    const { movie, onBackClick, Example } = this.props;
+    const { movie, onBackClick } = this.props;
 
     if (!movie) return null;
 

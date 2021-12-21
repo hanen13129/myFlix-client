@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import logo from 'url:../../../public/myflix-logo.png';
 import './registration-view.scss';
+
 export function RegistrationView(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-
   const [usernameError, setUsernameError] = useState({});
   const [passwordError, setPasswordError] = useState({});
   const [emailError, setEmailError] = useState({});
@@ -41,7 +44,6 @@ export function RegistrationView(props) {
     const passwordError = {};
     const emailError = {};
     let isValid = true;
-
     if (username.length < 4 || username === '') {
         usernameError.UsernameToShort = "Username must be more than 4 characters.";
         isValid = false;
@@ -54,38 +56,17 @@ export function RegistrationView(props) {
         emailError.notValidEmail = "Your email doesn't look quite right.";
         isValid = false;
     }
-
     setUsernameError(usernameError);
     setPasswordError(passwordError);
     setEmailError(emailError);
     return isValid;
 };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  const isValid = formValidation();
-  if (isValid) {
-    axios.post('https://movies-api-db.herokuapp.com/users', {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday
-    })
-    .then(response => {
-      const data = response.data;
-      console.log(data);
-      window.open('/', '_self');
-    })
-    .catch(e => {
-      console.log('error registering the user')
-    });
-  }
-}
-
   return (
     <div className="register-wrapper">
       <img className="myFlix-logo" width={400} src={logo} alt="logo" />
-      <Form className="register-form" noValidate>
+      <Form className="register-form"
+        noValidate>
         <Form.Group>
           <Form.Label>
             Username:
@@ -98,7 +79,6 @@ const handleSubmit = (e) => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
-
         {Object.keys(usernameError).map((key) => {
           return (
             <div className="form-validation-error" key={key}>
