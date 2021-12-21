@@ -1,8 +1,7 @@
 import React from "react";
 import './movie-card.scss';
 import PropTypes from "prop-types";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Button, Card } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 export class MovieCard extends React.Component {

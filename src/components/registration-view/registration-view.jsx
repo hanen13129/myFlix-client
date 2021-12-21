@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import logo from 'url:../../../public/myflix-logo.png';
@@ -64,11 +61,31 @@ export function RegistrationView(props) {
     return isValid;
 };
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const isValid = formValidation();
+  if (isValid) {
+    axios.post('https://movies-api-db.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self');
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
+  }
+}
+
   return (
     <div className="register-wrapper">
       <img className="myFlix-logo" width={400} src={logo} alt="logo" />
-      <Form className="register-form"
-        noValidate>
+      <Form className="register-form" noValidate>
         <Form.Group>
           <Form.Label>
             Username:
