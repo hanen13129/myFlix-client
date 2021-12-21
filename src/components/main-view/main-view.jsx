@@ -18,8 +18,9 @@ class MainView extends React.Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: null,
+      
       user: null,
+      selectedMovie: null,
     };
   }
   // src/components/main-view/main-view.jsx
@@ -31,9 +32,10 @@ class MainView extends React.Component {
             user: localStorage.getItem('user')
         });
         this.getMovies(accessToken);
+        this.getAcc(accessToken);
     }
 }
-  // src/components/main-view/mainview.jsx
+
   getMovies(token) {
     axios.get('https://movies-api-db.herokuapp.com/movies', {
       headers: {Authorization: `Bearer ${token}`}
@@ -71,12 +73,7 @@ class MainView extends React.Component {
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
 }
-  /* When a movie is clicked, this function is involed and updates the state of the selectedMovie property to that movie*/
-  setSelectedMovie(movie) {
-    this.setState({
-      selectedMovie: movie,
-    });
-  }
+ 
   render() {
     const { movies, user, userData } = this.state;
   
@@ -119,20 +116,29 @@ class MainView extends React.Component {
                   </Col>
                 </Row>
               }} />
-              {/* Start of Single Movie View */}
+              {/* Start of Movie View */}
               <Route path="/movies/:Title" render={({ match, history }) => {
                 if (!user) return <Row>
                     <Col>
                       <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                     </Col>
                   </Row>
-                return <Col md={8}>
-                  <MovieView movie={movies.find(m => m.Title === match.params.Title)} onBackClick={() => history.goBack()} />
-                </Col>
+                 return <>
+                 <Row className="mb-3 navigation-main">
+                   <Col>
+                     <NavBar user={user} />
+                   </Col>
+                 </Row>
+                 <Row>
+                   <Col md={8}>
+                     <MovieView movie={movies.find(m => m.Title === match.params.Title)} onBackClick={() => history.goBack()} />
+                   </Col>
+                 </Row>
+               </>
               }} />
             {/* 
             
-              Path to genre 
+             Genre View
             
             */}
       
@@ -143,14 +149,23 @@ class MainView extends React.Component {
                     </Col>
                   </Row>
                 if (movies.length === 0) return <div className="main-view" />;
-                return <Col md={8}>
-                  <GenreView genre={movies.find(m => m.genre.name === match .params.name).genre} onBackClick={() => history.goBack()} movies={movies} />
-                </Col>
+                return <>
+                    <Row className="mb-3 navigation-main">
+                      <Col>
+                        <NavBar user={user} />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={8}>
+                        <GenreView genre={movies.find(m => m.genre.name === match .params.name).genre} onBackClick={() => history.goBack()} movies={movies} />
+                      </Col>
+                    </Row>
+                </>
               }} />
 
             {/* 
               
-              Path to single director info
+              Director View
             */}
               <Route path="/directors/:name" render={({ match, history }) => {
                 if (!user) return <Col>
@@ -159,9 +174,16 @@ class MainView extends React.Component {
                 if (movies.length === 0) return <div className="main-view" />;
                   return (
                     <>
-                      <Col md={8}>
-                        <DirectorView director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()} movies={movies} />
-                      </Col>
+                      <Row className="mb-3 navigation-main">
+                        <Col>
+                          <NavBar user={user} />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={8}>
+                          <DirectorView director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()} movies={movies} />
+                        </Col>
+                      </Row>
                     </>
                   )
               }
@@ -206,11 +228,7 @@ class MainView extends React.Component {
                       <NavBar user={user} />
                     </Col>
                   </Row>
-                  <Row>
-                    <Col>
-                      <UpdateView user={user} movies={movies} onBackClick={() => history.goBack()} />
-                    </Col>
-                  </Row>
+                  <UpdateView user={user} movies={movies} onBackClick={() => history.goBack()} />
                 </>
               )
             }
