@@ -11,16 +11,17 @@ export class UpdateView extends React.Component {
       Username: "",
       Password: "",
       Email: "",
+      Birthday: "",
       PasswordError: "",
       EmailError: "",
       BirthdayError: "",
     }
   }
-
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
     this.getUser(accessToken);
   }
+
   getUser(token) {
     let url = 'https://movies-api-db.herokuapp.com/users/' +
         localStorage.getItem('user');
@@ -33,10 +34,10 @@ export class UpdateView extends React.Component {
                 Password: response.data.Password,
                 Email: response.data.Email,
                 Birthday: response.data.Birthday,
-                Favorties: response.data.Favorites
             });
         });
   }
+
 /* Handle form update */
   handleUpdate(e) {
     let token = localStorage.getItem("token");
@@ -45,7 +46,6 @@ export class UpdateView extends React.Component {
     if (validated) {
       axios.put( `https://movies-api-db.herokuapp.com/userupdate/${user}`,
           { 
-              //Username: this.state.Username,
               Password: this.state.Password,
               Email: this.state.Email,
               Birthday: this.state.Birthday
@@ -54,11 +54,10 @@ export class UpdateView extends React.Component {
         )
           .then((response) => {
               const data = response.data;
-              //localStorage.setItem("user", data.Username);
               console.log(data);
               alert(user + " has been updated.");
               console.log(response);
-              window.open('{`/users/${this.props.user}`}', '_self'); // <- Not working - not sure why
+              window.open('{`/users/${this.props.user}`}', '_self');
           })
           .catch(function (error) {
               alert(error.response.data);
@@ -66,37 +65,39 @@ export class UpdateView extends React.Component {
         }}
 
 /* Form Validation Start */
-      formValidation() {
-        let EmailError = {};
-        let PasswordError = {};
-        let BirthdayError = {};
-        let isValid = true;
-        if (this.state.Password.length < 6) {
-          PasswordError.passwordMissing = "You must enter a password at least 6 characters long.";
-          isValid = false;
-        }
-        if (!(this.state.Email && this.state.Email.includes(".") && this.state.Email.includes("@"))) {
-          EmailError.emailNotEmail = "Your email doesn't look quite right.";
-          isValid = false;
-        }
-        if (this.state.Birthday === '') {
-          BirthdayError.BirthdayEmpty = "Please enter your date of birth.";
-          isValid = false;
-        }
-        this.setState({
-          PasswordError: PasswordError,
-          EmailError: EmailError,
-          BirthdayError: BirthdayError,
-        })
-        return isValid;
-      };
 
-      setField(e) {
-        let { name, value } = e.target;
-        this.setState({
-          [name]: value
-        })
-      }
+  formValidation() {
+    let EmailError = {};
+    let PasswordError = {};
+    let BirthdayError = {};
+    let isValid = true;
+    if (this.state.Password.trim().length < 5 || this.state.Password === '') {
+      PasswordError.passwordMissing = "You must enter a password at least 6 characters long.";
+      isValid = false;
+    }
+    if (!(this.state.Email && this.state.Email.includes(".") && this.state.Email.includes("@"))) {
+      EmailError.emailNotEmail = "Your email doesn't look quite right.";
+      isValid = false;
+    }
+    if (this.state.Birthday === '' || !this.state.Birthday ) {
+      BirthdayError.BirthdayEmpty = "Please enter your date of birth.";
+      isValid = false;
+    }
+    this.setState({
+      PasswordError: PasswordError,
+      EmailError: EmailError,
+      BirthdayError: BirthdayError,
+    })
+    return isValid;
+  };
+
+  setField(e) {
+    let { name, value } = e.target;
+    this.setState({
+      [name]: value
+    })
+  }
+
 
 
   render() {
@@ -111,10 +112,10 @@ export class UpdateView extends React.Component {
         <Form>
           <Form.Group controlId="updateEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" name="Email" placeholder={`${this.state.Email}`} onChange={(e) => this.setField(e)}></Form.Control>
+            <Form.Control type="email" name="Email" placeholder={`${this.state.Email}`} onChange={(e) => this.setField(e)} required ></Form.Control>
             {Object.keys(EmailError).map((key) => {
                     return (
-                      <div className="form-validation-error" key={key}>
+                      <div className="updateform-validation-error" key={key}>
                         {EmailError[key]}
                       </div>
                     );
@@ -122,21 +123,21 @@ export class UpdateView extends React.Component {
           </Form.Group>
           <Form.Group controlId="updateBirthday">
             <Form.Label>Birthday</Form.Label>
-            <Form.Control type="date" name="Birthday" placeholder={`${this.state.Birthday}`} onChange={(e) => this.setField(e)}></Form.Control>
+            <Form.Control type="date" name="Birthday" onChange={(e) => this.setField(e)} required></Form.Control>
             {Object.keys(BirthdayError).map((key) => {
                     return (
-                      <div className="form-validation-error" key={key}>
+                      <div className="updateform-validation-error" key={key}>
                         {BirthdayError[key]}
                       </div>
                     );
                   })}
           </Form.Group>
           <Form.Group controlId="updatePassword">
-          <Form.Label>Password</Form.Label>
-            <Form.Control type="password" name="Password" placeholder="New password" onChange={(e) => this.setField(e)}></Form.Control>
+          <Form.Label>New Password</Form.Label>
+            <Form.Control type="password" name="Password" placeholder="" onChange={(e) => this.setField(e)} required ></Form.Control>
             {Object.keys(PasswordError).map((key) => {
                     return (
-                      <div className="form-validation-error" key={key}>
+                      <div className="updateform-validation-error" key={key}>
                         {PasswordError[key]}
                       </div>
                     );
@@ -155,7 +156,6 @@ export class UpdateView extends React.Component {
     );
   }
 }
-
 UpdateView.propTypes = {
   users: PropTypes.shape({
     Username: PropTypes.string,
