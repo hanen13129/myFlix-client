@@ -13,6 +13,7 @@ export function RegistrationView(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+
   const [usernameError, setUsernameError] = useState({});
   const [passwordError, setPasswordError] = useState({});
   const [emailError, setEmailError] = useState({});
@@ -44,6 +45,7 @@ export function RegistrationView(props) {
     const passwordError = {};
     const emailError = {};
     let isValid = true;
+
     if (username.length < 4 || username === '') {
         usernameError.UsernameToShort = "Username must be more than 4 characters.";
         isValid = false;
@@ -56,6 +58,7 @@ export function RegistrationView(props) {
         emailError.notValidEmail = "Your email doesn't look quite right.";
         isValid = false;
     }
+
     setUsernameError(usernameError);
     setPasswordError(passwordError);
     setEmailError(emailError);
@@ -79,6 +82,7 @@ export function RegistrationView(props) {
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
+
         {Object.keys(usernameError).map((key) => {
           return (
             <div className="form-validation-error" key={key}>
@@ -129,11 +133,11 @@ export function RegistrationView(props) {
             Birthday:
           </Form.Label>
           <Form.Control
-              type="date"
-              name="birthday"
-              value={birthday}
-              placeholder="YYYY-MM-DD"
-              onChange={(e) => setBirthday(e.target.value)}
+            type="date"
+            name="birthday"
+            value={birthday}
+            placeholder="YYYY-MM-DD"
+            onChange={(e) => setBirthday(e.target.value)}
             />
         </Form.Group>
         <Row>
@@ -148,6 +152,7 @@ export function RegistrationView(props) {
     </div>
   );
 }
+
 RegistrationView.propTypes = {
   register: PropTypes.shape({
       Username: PropTypes.string.isRequired,

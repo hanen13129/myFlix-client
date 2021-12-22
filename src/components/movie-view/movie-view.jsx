@@ -8,7 +8,9 @@ import { Row, Button, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import './movie-view.scss';
+
 export class MovieView extends React.Component {
+
   handleAdd() {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
@@ -39,9 +41,9 @@ export class MovieView extends React.Component {
 
   render() {
     const { movie, onBackClick } = this.props;
-
+    
     if (!movie) return null;
-
+    
     return (
       <>
         <div className="movie-view-wrapper ml-5 mt-3">
@@ -79,6 +81,7 @@ export class MovieView extends React.Component {
     );
   }
 }
+
 MovieView.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
