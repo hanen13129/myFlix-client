@@ -9,14 +9,14 @@ export class GenreView extends React.Component {
   
   render() {
     const { genre, onBackClick, movies } = this.props;
-    const genreMovies = movies.filter(m => m.genre.name === genre.name);
+    const genreMovies = movies.filter(m => m.genre.Name === genre.Name);
     return (
       <Container className="genre-wrapper m-4">
         <Row  className="text-white">
-          <h2>Genre: {genre.name}</h2>
+          <h2>Genre: {genre.Name}</h2>
         </Row>
         <Row className="text-white">
-         <p className="genre-description">Description: {genre.description}</p>
+         <p className="genre-description">Description: {genre.Description}</p>
         </Row>
         <Row>
           <Button className="lg" variant="primary" onClick={() => {onBackClick(null);}}>Back to list</Button>
@@ -34,7 +34,7 @@ export class GenreView extends React.Component {
 
 GenreView.propTypes = {
   genre: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired
   }).isRequired
 };

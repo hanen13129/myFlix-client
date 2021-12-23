@@ -49,18 +49,18 @@ export class MovieView extends React.Component {
         <div className="movie-view-wrapper ml-5 mt-3">
           <Row>
             <div>
-              <img src={movie.imageUrl} />
+              <img src={movie.ImagePath} crossOrigin="anonymous" />
             </div>
           </Row>
           <Row>
-            <span className="meta-text">Genre: <Link to={`/genres/${movie.genre.name}`}>{movie.genre.name}</Link></span>
+            <span className="meta-text">Genre: <Link to={`/genres/${movie.Genre.Name}`}>{movie.Genre.Name}</Link></span>
           </Row>
           <Row>
-            <span className="meta-text">Directed by: <Link to={`/directors/${movie.director.name}`}>{movie.director.name}</Link></span>
+            <span className="meta-text">Directed by: <Link to={`/directors/${movie.Director.Name}`}>{movie.Director.Name}</Link></span>
           </Row>
           <Row  className="text-white">
             <h1>{movie.Title}</h1>
-            <p className="movie-description">{movie.description}</p>
+            <p className="movie-description">{movie.Description}</p>
             <div className="back-btn">
               <Button className="lg" variant="primary" onClick={() => {onBackClick(null);}}>Back to Movies</Button>
             </div>
@@ -85,12 +85,12 @@ export class MovieView extends React.Component {
 MovieView.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-    genre: PropTypes.shape({
-      name: PropTypes.string,}),
-    director: PropTypes.shape({
-      name: PropTypes.string
+    Description: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string,}),
+    Director: PropTypes.shape({
+      Name: PropTypes.string
     })
   })
 };

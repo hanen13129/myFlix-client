@@ -25976,7 +25976,7 @@ class MainView extends _reactDefault.default.Component {
                                                 children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                                                     md: 8,
                                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_genreView.GenreView, {
-                                                        genre: movies.find((m)=>m.genre.name === match.params.name
+                                                        genre: movies.find((m)=>m.genre.Name === match.params.name
                                                         ).genre,
                                                         onBackClick: ()=>history.goBack()
                                                         ,
@@ -30899,8 +30899,8 @@ class MovieCard extends _reactDefault.default.Component {
 MovieCard.propTypes = {
     movie: _propTypesDefault.default.shape({
         Title: _propTypesDefault.default.string.isRequired,
-        description: _propTypesDefault.default.string.isRequired,
-        imageUrl: _propTypesDefault.default.string.isRequired
+        Description: _propTypesDefault.default.string.isRequired,
+        ImagePath: _propTypesDefault.default.string.isRequired
     }).isRequired
 };
 
@@ -31342,8 +31342,8 @@ _s(LoginView, "wuQOK7xaXdVz4RMrZQhWbI751Oc=");
 _c = LoginView;
 LoginView.propTypes = {
     user: _propTypesDefault.default.shape({
-        username: _propTypesDefault.default.string.isRequired,
-        password: _propTypesDefault.default.string.isRequired
+        Username: _propTypesDefault.default.string.isRequired,
+        Password: _propTypesDefault.default.string.isRequired
     })
 };
 var _c;
@@ -31846,7 +31846,8 @@ class MovieView extends _reactDefault.default.Component {
                             },
                             __self: this,
                             children: /*#__PURE__*/ _jsxRuntime.jsx("img", {
-                                src: movie.imageUrl,
+                                src: movie.ImagePath,
+                                crossOrigin: "anonymous",
                                 __source: {
                                     fileName: "src/components/movie-view/movie-view.jsx",
                                     lineNumber: 52
@@ -31871,13 +31872,13 @@ class MovieView extends _reactDefault.default.Component {
                             children: [
                                 "Genre: ",
                                 /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
-                                    to: `/genres/${movie.genre.name}`,
+                                    to: `/genres/${movie.Genre.Name}`,
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
                                         lineNumber: 56
                                     },
                                     __self: this,
-                                    children: movie.genre.name
+                                    children: movie.Genre.Name
                                 })
                             ]
                         })
@@ -31898,13 +31899,13 @@ class MovieView extends _reactDefault.default.Component {
                             children: [
                                 "Directed by: ",
                                 /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
-                                    to: `/directors/${movie.director.name}`,
+                                    to: `/directors/${movie.Director.Name}`,
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
                                         lineNumber: 59
                                     },
                                     __self: this,
-                                    children: movie.director.name
+                                    children: movie.Director.Name
                                 })
                             ]
                         })
@@ -31932,7 +31933,7 @@ class MovieView extends _reactDefault.default.Component {
                                     lineNumber: 63
                                 },
                                 __self: this,
-                                children: movie.description
+                                children: movie.Description
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx("div", {
                                 className: "back-btn",
@@ -32032,13 +32033,13 @@ class MovieView extends _reactDefault.default.Component {
 MovieView.propTypes = {
     movie: _propTypesDefault.default.shape({
         Title: _propTypesDefault.default.string.isRequired,
-        description: _propTypesDefault.default.string.isRequired,
-        imageUrl: _propTypesDefault.default.string.isRequired,
-        genre: _propTypesDefault.default.shape({
-            name: _propTypesDefault.default.string
+        Description: _propTypesDefault.default.string.isRequired,
+        ImagePath: _propTypesDefault.default.string.isRequired,
+        Genre: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string
         }),
-        director: _propTypesDefault.default.shape({
-            name: _propTypesDefault.default.string
+        Director: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string
         })
     })
 };
@@ -43853,7 +43854,7 @@ var _directorViewScss = require("./director-view.scss");
 class DirectorView extends _reactDefault.default.Component {
     render() {
         const { director , onBackClick , movies  } = this.props;
-        const directorsMovies = movies.filter((m)=>m.director.name === director.name
+        const directorsMovies = movies.filter((m)=>m.Director.Name === director.Name
         );
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Container, {
             className: "director-container m-4",
@@ -43876,7 +43877,7 @@ class DirectorView extends _reactDefault.default.Component {
                             lineNumber: 18
                         },
                         __self: this,
-                        children: director.name
+                        children: director.Name
                     })
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Row, {
@@ -43896,7 +43897,7 @@ class DirectorView extends _reactDefault.default.Component {
                             __self: this,
                             children: [
                                 "Born: ",
-                                director.birthyear
+                                director.Birthyear
                             ]
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsxs("p", {
@@ -43907,7 +43908,7 @@ class DirectorView extends _reactDefault.default.Component {
                             __self: this,
                             children: [
                                 "Biography: ",
-                                director.bio,
+                                director.Bio,
                                 " "
                             ]
                         })
@@ -43973,10 +43974,10 @@ class DirectorView extends _reactDefault.default.Component {
     }
 }
 DirectorView.propTypes = {
-    director: _propTypesDefault.default.shape({
-        name: _propTypesDefault.default.string.isRequired,
-        bio: _propTypesDefault.default.string.isRequired,
-        birthyear: _propTypesDefault.default.string.isRequired
+    Director: _propTypesDefault.default.shape({
+        Name: _propTypesDefault.default.string.isRequired,
+        Bio: _propTypesDefault.default.string.isRequired,
+        Birthyear: _propTypesDefault.default.string.isRequired
     }),
     onBackClick: _propTypesDefault.default.func.isRequired
 };
@@ -44008,7 +44009,7 @@ var _genreViewScss = require("./genre-view.scss");
 class GenreView extends _reactDefault.default.Component {
     render() {
         const { genre , onBackClick , movies  } = this.props;
-        const genreMovies = movies.filter((m)=>m.genre.name === genre.name
+        const genreMovies = movies.filter((m)=>m.genre.Name === genre.Name
         );
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Container, {
             className: "genre-wrapper m-4",
@@ -44033,7 +44034,7 @@ class GenreView extends _reactDefault.default.Component {
                         __self: this,
                         children: [
                             "Genre: ",
-                            genre.name
+                            genre.Name
                         ]
                     })
                 }),
@@ -44053,7 +44054,7 @@ class GenreView extends _reactDefault.default.Component {
                         __self: this,
                         children: [
                             "Description: ",
-                            genre.description
+                            genre.Description
                         ]
                     })
                 }),
@@ -44118,8 +44119,8 @@ class GenreView extends _reactDefault.default.Component {
 }
 GenreView.propTypes = {
     genre: _propTypesDefault.default.shape({
-        name: _propTypesDefault.default.string.isRequired,
-        description: _propTypesDefault.default.string.isRequired
+        Name: _propTypesDefault.default.string.isRequired,
+        Description: _propTypesDefault.default.string.isRequired
     }).isRequired
 };
 

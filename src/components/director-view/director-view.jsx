@@ -10,16 +10,16 @@ export class DirectorView extends React.Component {
   render() {
     const { director, onBackClick, movies } = this.props;
 
-    const directorsMovies = movies.filter(m => m.director.name === director.name);
+    const directorsMovies = movies.filter(m => m.Director.Name === director.Name);
     
     return (
       <Container className="director-container m-4">
         <Row  className="text-white">
-         <h1>{director.name}</h1>
+         <h1>{director.Name}</h1>
          </Row>
          <Row className="text-white">
-          <p className="director-description">Born: {director.birthyear}</p>
-          <p>Biography: {director.bio} </p>
+          <p className="director-description">Born: {director.Birthyear}</p>
+          <p>Biography: {director.Bio} </p>
          </Row>
          <Row>
            <Button className="lg" variant="primary" onClick={() => {onBackClick(null);}}>Back to list</Button>
@@ -36,10 +36,10 @@ export class DirectorView extends React.Component {
 }
 
 DirectorView.propTypes = {
-  director: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired,
-    birthyear: PropTypes.string.isRequired
+  Director: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Bio: PropTypes.string.isRequired,
+    Birthyear: PropTypes.string.isRequired
   }),
   onBackClick: PropTypes.func.isRequired
 };
