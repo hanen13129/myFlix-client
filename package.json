@@ -1,10 +1,8 @@
 {
   "name": "myflix-client",
   "version": "1.0.0",
-  "main": "src/index.html",
+  "default": "src/index.html",
   "dependencies": {
-    "@parcel/compressor-raw": "^2.0.1",
-    "@parcel/core": "^2.0.1",
     "@parcel/transformer-image": "^2.0.0-rc.0",
     "axios": "^0.24.0",
     "parcel": "^2.0.0-rc.0",

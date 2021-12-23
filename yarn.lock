@@ -306,13 +306,6 @@
     "slice-ansi" "^4.0.0"
     "string-width" "^4.2.0"
 
-"@parcel/compressor-raw@^2.0.1":
-  "integrity" "sha512-0VNadPUIIpgx2MCjt7PGOwcz0OXN0BFxCmWzy+ocyEWj0KQ79OBr8ni7I3Be78OxNhE8luTEC22kVJwM0rtP1g=="
-  "resolved" "https://registry.npmjs.org/@parcel/compressor-raw/-/compressor-raw-2.0.1.tgz"
-  "version" "2.0.1"
-  dependencies:
-    "@parcel/plugin" "^2.0.1"
-
 "@parcel/config-default@2.0.0-rc.0":
   "integrity" "sha512-BVSst1GXA9Y2/+7E9uiuiPYiAAM+9OJRaOyveClBDRj9t8zltP4f6dlk5hbNtLIF1SnFir2kY4I8Rrc1OOp/DQ=="
   "resolved" "https://registry.npmjs.org/@parcel/config-default/-/config-default-2.0.0-rc.0.tgz"
@@ -343,7 +336,7 @@
     "@parcel/transformer-raw" "2.0.0-rc.0"
     "@parcel/transformer-react-refresh-wrap" "2.0.0-rc.0"
 
-"@parcel/core@^2.0.0", "@parcel/core@^2.0.0-alpha.3.1", "@parcel/core@^2.0.1":
+"@parcel/core@^2.0.0", "@parcel/core@^2.0.0-alpha.3.1":
   "integrity" "sha512-Iy5FgUAquc5HjQGiyKbWK0WaaVXerrzWD7cNBTIUOlk1xNeUtOeGu80Kc5xu0qT0/Mc+nsDfPhWcN8p4RVF+PQ=="
   "resolved" "https://registry.npmjs.org/@parcel/core/-/core-2.0.1.tgz"
   "version" "2.0.1"
