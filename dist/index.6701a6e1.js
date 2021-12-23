@@ -25976,7 +25976,7 @@ class MainView extends _reactDefault.default.Component {
                                                 children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                                                     md: 8,
                                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_genreView.GenreView, {
-                                                        genre: movies.find((m)=>m.genre.Name === match.params.name
+                                                        genre: movies.find((m)=>m.genre.Name === match.params.Name
                                                         ).genre,
                                                         onBackClick: ()=>history.goBack()
                                                         ,
