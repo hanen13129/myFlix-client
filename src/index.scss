@@ -1,5 +1,35 @@
-$color: steelblue;
+//Primary Blue
+$blue: #27abe8;
 
-.my-flix {
-  color: $color;
+.Main-Content-Container {
+  width:100%;
+}
+
+body {
+  background-color: #131313 !important;
+}
+.top-wrapper {
+  display: flow-root;
+}
+
+.logout-button {
+  float:right;
+}
+
+.display-none {
+  display:none;
+}
+
+.navigation-main {
+  display:block;
+  width:100%;
+  margin-left:0px;
+}
+
+.navbar-expand-lg .navbar-collapse {
+  flex:inherit;
+}
+
+.dropdown-item {
+  padding:3px 15px;
 }

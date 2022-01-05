@@ -1,104 +1,99 @@
-import React from 'react';
-import PropTypes from "prop-types";
-import axios from "axios";
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import React from "react";
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { Row, Button, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import './movie-view.scss';
 
 export class MovieView extends React.Component {
 
-    addToFavs() {
-        const Username = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
-        const { movie } = this.props;
+  handleAdd() {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    const notifyAdd = () => toast.info(this.props.movie.Title + " has been added to your favorites!");
+    axios.post(`https://movies-api-db.herokuapp.com/users/movies/${this.props.movie._id}`, {},
+      { headers: { Authorization: `Bearer ${token}` },
+      method: 'POST'}
+    )
+      .then((response) => {
+        alert(`Added to Favorites List`)
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+    });
+  }
 
-        axios.post(`https://movieapi-morkos.herokuapp.com/users/${Username}/movies/${movie._id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((response) => {
-                console.log(response);
-                console.log(movie._id);
-                alert("The movie is now on your list.");
-                this.componentDidMount();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+  handleRemove() {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    const notifyRemove = () => toast.warning(this.props.movie.Title + " has been removed from your favorites!");
+    axios.post(`https://movies-api-db.herokuapp.com/users/removefromfavs/${user}/` +
+      this.props.movie._id, {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+      .then((response) => {
+        console.log(response);
+        notifyRemove();
+      })
+  }
 
-    componentDidMount() {
-        document.addEventListener("keypress", this.keypressCallback);
-    }
-
-    onLoggedOut() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        this.setState({
-            user: null,
-        });
-        window.open("/", "_self");
-    }
-
-    render() {
-        const { movie, onBackClick, user } = this.props;
-
-        return (
-
-            <Container fluid className="moviesContainer" align="center">
-                <Row>
-                    <Col>
-                        <br />
-                        <div className="movie-view">
-                            <div className="movie-poster" style={{ textAlign: "center", marginBottom: "30px" }}>
-                                <img src={movie.ImagePath} crossOrigin="true" width="300" height="400" />
-                            </div>
-                            <div className="movie-title">
-                                <span className="title">Title: </span>
-                                <span className="value">{movie.Title}</span>
-                            </div>
-                            <div className="movie-description">
-                                <span className="description">Description: </span>
-                                <span className="value">{movie.Description}</span>
-                            </div>
-                            <div className="movie-genre">
-                                <span className="label">Genre: </span>
-                                <Link to={`/genres/${movie.Genre.Name}`}>
-                                    <span className="value">{movie.Genre.Name}</span>
-                                </Link>
-                            </div>
-                            <div className="movie-director">
-                                <span className="director">Director: </span>
-                                <Link to={`/directors/${movie.Director.Name}`}>
-                                    <span className="value">{movie.Director.Name}</span>
-                                </Link>
-                            </div>
-                            <br />
-                            <div className="movie-button-div">
-                                <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
-                                <Button variant="outline-primary" className="btn-outline-primary" onClick={() => { this.addToFavs(); }}>Add to Favorite</Button>
-                            </div>
-                            <br />
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    }
+  render() {
+    const { movie, onBackClick } = this.props;
+    
+    if (!movie) return null;
+    
+    return (
+      <>
+        <div className="movie-view-wrapper ml-5 mt-3">
+          <Row>
+            <div>
+              <img src={movie.ImagePath} crossOrigin="anonymous" />
+            </div>
+          </Row>
+          <Row>
+            <span className="meta-text">Genre: <Link to={`/genres/${movie.Genre.Name}`}>{movie.Genre.Name}</Link></span>
+          </Row>
+          <Row>
+            <span className="meta-text">Directed by: <Link to={`/directors/${movie.Director.Name}`}>{movie.Director.Name}</Link></span>
+          </Row>
+          <Row  className="text-white">
+            <h1>{movie.Title}</h1>
+            <p className="movie-description">{movie.Description}</p>
+            <div className="back-btn">
+              <Button className="lg" variant="primary" onClick={() => {onBackClick(null);}}>Back to Movies</Button>
+            </div>
+            <div className="favorite-buttons">
+              <Link to={`/movies/${movie.Title}`}>
+                <Button block type="button" variant="success" onClick={() => this.handleAdd(movie)}>Add to favorites</Button>
+              </Link>
+              <ToastContainer />
+            </div>
+            <div className="favorite-buttons">
+              <Link to={`/movies/${movie.Title}`}>
+                <Button block type="button" variant="danger" onClick={() => this.handleRemove(movie)}>Remove from favorites</Button>
+              </Link>
+            </div>
+          </Row>
+        </div>
+      </>
+    );
+  }
 }
 
 MovieView.propTypes = {
-    movie: PropTypes.shape({
-        Title: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
-        Genre: PropTypes.shape({
-            Name: PropTypes.string.isRequired,
-            Description: PropTypes.string.isRequired
-        }),
-        Director: PropTypes.shape({
-            Name: PropTypes.string.isRequired,
-        }),
-        ImagePath: PropTypes.string.isRequired
-    }).isRequired,
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string,}),
+    Director: PropTypes.shape({
+      Name: PropTypes.string
+    })
+  })
 };
