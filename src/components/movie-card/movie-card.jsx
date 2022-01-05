@@ -1,37 +1,59 @@
-import React from "react";
-import './movie-card.scss';
-import PropTypes from "prop-types";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button, Card, CardGroup, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+
+import './movie-card.scss';
+
 export class MovieCard extends React.Component {
-  render() {
-    const { movie } = this.props;
 
-    console.log("MyMovieeeee", movie.ImagePath)
+    onLoggedOut() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        this.setState({
+            user: null,
+        });
+        window.open("/", "_self");
+    }
 
-    //movie.imageUrl = "https://image.film.at/images/cfs_616w/2956860/img.jpg"
-    return (
+    render() {
+        const { movie } = this.props;
 
-      <Card className="h-100 text-white bg-transparent">
-        <Card.Img variant="top" src={movie.ImagePath} crossOrigin="anonymous" />
-        <Card.Body>
-          <Card.Title><h3>{movie.Title}</h3></Card.Title>
-          <Link to={`/movies/${movie.Title}`}>
-          <Button variant="link">View</Button>
-          </Link>
-        </Card.Body>
-      </Card>
-    );
-  }
+        return (
+
+            <Container>
+                <br />
+                <Row>
+                    <Card align="center">
+                        <Card.Img variant="top" src={movie.ImagePath} crossOrigin="true" width="300" height="350" />
+                        <Card.Body>
+                            <Card.Title>{movie.Title}</Card.Title>
+                            <br />
+                            <Card.Text>{movie.Description}</Card.Text>
+                            <br />
+                            <Link to={`/movies/${movie.Title}`}>
+                                <Button variant="link">Show more</Button>
+                            </Link>
+                        </Card.Body>
+                    </Card>
+                </Row>
+            </Container>
+        );
+    }
 }
 
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string.isRequired,
-  }).isRequired,
+    movie: PropTypes.shape({
+        Title: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired,
+        Genre: PropTypes.shape({
+            Name: PropTypes.string.isRequired
+        }),
+        Director: PropTypes.shape({
+            Name: PropTypes.string.isRequired
+        }),
+        ImagePath: PropTypes.string.isRequired
+    }).isRequired,
+    onMovieClick: PropTypes.func.isRequired
 };

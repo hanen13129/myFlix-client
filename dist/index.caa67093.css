@@ -96,6 +96,24 @@ hr.hr-text::before {
   font-style: italic;
   color: #ed4441;
 }
+.meta-text {
+  color: #cecece;
+  font-size: 14px;
+  font-style: italic;
+  padding: 5px 0px;
+}
+
+.favorite-buttons {
+  display: block;
+  width: 35%;
+  margin: 5px;
+}
+
+.back-btn {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+}
 :root {
   --toastify-color-light: #fff;
   --toastify-color-dark: #121212;
@@ -711,24 +729,6 @@ hr.hr-text::before {
 }
 
 
-.meta-text {
-  color: #cecece;
-  font-size: 14px;
-  font-style: italic;
-  padding: 5px 0px;
-}
-
-.favorite-buttons {
-  display: block;
-  width: 35%;
-  margin: 5px;
-}
-
-.back-btn {
-  display: block;
-  width: 100%;
-  margin-bottom: 15px;
-}
 .directors-movies {
   display: block;
   width: 100%;

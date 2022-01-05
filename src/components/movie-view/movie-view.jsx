@@ -15,14 +15,17 @@ export class MovieView extends React.Component {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
     const notifyAdd = () => toast.info(this.props.movie.Title + " has been added to your favorites!");
-    axios.post(`https://movies-api-db.herokuapp.com/users/addtofavs/${user}/` +
-      this.props.movie._id, {},
-      { headers: { Authorization: `Bearer ${token}` } }
+    axios.post(`https://movies-api-db.herokuapp.com/users/movies/${this.props.movie._id}`, {},
+      { headers: { Authorization: `Bearer ${token}` },
+      method: 'POST'}
     )
       .then((response) => {
-        console.log(response);
-        notifyAdd();
+        alert(`Added to Favorites List`)
+        
       })
+      .catch(function (error) {
+        console.log(error);
+    });
   }
 
   handleRemove() {
