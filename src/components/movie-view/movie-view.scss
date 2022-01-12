@@ -1,18 +1,28 @@
-.meta-text {
-  color: #cecece;
-  font-size: 14px;
-  font-style:italic;
-  padding: 5px 0px;
+.movie-title {
+  color: var(--primary-color);
 }
 
-.favorite-buttons {
-  display:block;
-  width:35%;
-  margin:5px;
+.movie-genre, .movie-description, .movie-director, .card-subtitle {
+  color: var(--gray);
 }
 
-.back-btn {
-  display:block;
-  width:100%;
-  margin-bottom:15px;
+a {
+  color: var(--primary-color) !important;
+}
+
+ a:hover {
+  text-decoration: none !important;
+}
+
+.movie-poster {
+  float: left;
+  padding-right: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+  /* For mobile phones: */
+ .movie-poster {
+   padding-bottom: 1rem;
+   min-width: 100% !important;
+  }
 }

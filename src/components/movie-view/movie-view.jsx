@@ -1,86 +1,94 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import axios from 'axios';
+import PropTypes from "prop-types";
+
+import { Link } from "react-router-dom";
+import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
+//Bootstrap Elements
+import { Button, Container } from "react-bootstrap";
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Row, Button, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
-import './movie-view.scss';
+import "./movie-view.scss";
 
 export class MovieView extends React.Component {
-
-  handleAdd() {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    const notifyAdd = () => toast.info(this.props.movie.Title + " has been added to your favorites!");
-    axios.post(`https://movies-api-db.herokuapp.com/users/movies/${this.props.movie._id}`, {},
-      { headers: { Authorization: `Bearer ${token}` },
-      method: 'POST'}
-    )
-      .then((response) => {
-        alert(`Added to Favorites List`)
-        
-      })
-      .catch(function (error) {
-        console.log(error);
-    });
+  constructor() {
+    super();
+    this.state = {};
   }
 
-  handleRemove() {
+  addFavorite(movie) {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
-    const notifyRemove = () => toast.warning(this.props.movie.Title + " has been removed from your favorites!");
-    axios.post(`https://movies-api-db.herokuapp.com/users/removefromfavs/${user}/` +
-      this.props.movie._id, {},
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
+    axios
+      .post(
+        `https://movies-api-db.herokuapp.com/users/${user}` +
+          "/movies/" +
+          this.props.movie._id,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((response) => {
-        console.log(response);
-        notifyRemove();
-      })
+      
+        alert(this.props.movie.Title + " has been added to your favorites!");
+      });
+      
   }
 
   render() {
     const { movie, onBackClick } = this.props;
-    
-    if (!movie) return null;
-    
+
     return (
-      <>
-        <div className="movie-view-wrapper ml-5 mt-3">
-          <Row>
-            <div>
-              <img src={movie.ImagePath} crossOrigin="anonymous" />
-            </div>
-          </Row>
-          <Row>
-            <span className="meta-text">Genre: <Link to={`/genres/${movie.Genre.Name}`}>{movie.Genre.Name}</Link></span>
-          </Row>
-          <Row>
-            <span className="meta-text">Directed by: <Link to={`/directors/${movie.Director.Name}`}>{movie.Director.Name}</Link></span>
-          </Row>
-          <Row  className="text-white">
-            <h1>{movie.Title}</h1>
-            <p className="movie-description">{movie.Description}</p>
-            <div className="back-btn">
-              <Button className="lg" variant="primary" onClick={() => {onBackClick(null);}}>Back to Movies</Button>
-            </div>
-            <div className="favorite-buttons">
-              <Link to={`/movies/${movie.Title}`}>
-                <Button block type="button" variant="success" onClick={() => this.handleAdd(movie)}>Add to favorites</Button>
-              </Link>
-              <ToastContainer />
-            </div>
-            <div className="favorite-buttons">
-              <Link to={`/movies/${movie.Title}`}>
-                <Button block type="button" variant="danger" onClick={() => this.handleRemove(movie)}>Remove from favorites</Button>
-              </Link>
-            </div>
-          </Row>
+      <Container>
+        <div className="movie-view">
+          <div className="movie-poster">
+            <img src={movie.ImagePath} crossOrigin="anonymous" />
+          </div>
+          <div className="movie-title">
+            <span className="label"></span>
+            <h1 className="value">{movie.Title}</h1>
+          </div>
+          <div className="movie-genre">
+            <span className="label text-uppercase font-weight-bold text-muted">
+              Genre{" "}
+            </span>
+            <Link className="link" to={`/genre/${movie.Genre.Name}`}>
+              <span className="value">{movie.Genre.Name}</span>
+            </Link>
+            <span> | </span>
+            <span className="label text-uppercase font-weight-bold text-muted">
+              Director{" "}
+            </span>
+            <Link className="link" to={`/director/${movie.Director.Name}`}>
+              <span className="value">{movie.Director.Name}</span>
+            </Link>
+            <p></p>
+          </div>
+          <div className="movie-description">
+            <span className="label"></span>
+            <span className="value">{movie.Description}</span>
+          </div>
+          <p></p>
+          <div className="btn-toolbar">
+            <Button
+              className="favorite-btn font-weight-bold mr-3"
+              variant="primary"
+              onClick={() => this.addFavorite(movie)}
+            >
+              + Add To Favorites
+            </Button>
+            <Button
+              className="back-button font-weight-bold"
+              variant="primary"
+              onClick={() => {
+                onBackClick(null);
+              }}
+            >
+              Back
+            </Button>
+          </div>
         </div>
-      </>
+      </Container>
     );
   }
 }
@@ -91,9 +99,11 @@ MovieView.propTypes = {
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
     Genre: PropTypes.shape({
-      Name: PropTypes.string,}),
+      Name: PropTypes.string.isRequired,
+    }),
     Director: PropTypes.shape({
-      Name: PropTypes.string
-    })
-  })
+      Name: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+  onBackClick: PropTypes.func.isRequired,
 };

@@ -26,7 +26,7 @@ export class MovieCard extends React.Component {
                 <br />
                 <Row>
                     <Card align="center">
-                        <Card.Img variant="top" src={movie.ImagePath} crossOrigin="true" width="300" height="350" />
+                        <Card.Img variant="top" src={movie.ImagePath}  crossOrigin="true" width="300" height="350" />
                         <Card.Body>
                             <Card.Title>{movie.Title}</Card.Title>
                             <br />

@@ -267,7 +267,7 @@ export class ProfileView extends React.Component {
                                                         <Card.Img
                                                             className="fav-poster"
                                                             variant="top"
-                                                            src={movie.ImagePath}
+                                                            src={movie.ImagePath} crossOrigin="anonymous"
                                                         />
                                                         <Card.Body style={{ backgroundColor: "black" }}>
                                                             <Card.Title className="movie_title">

@@ -1,52 +1,73 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
-import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 import "./director-view.scss";
 
 export class DirectorView extends React.Component {
-    render() {
-        const { Director, onBackClick, movies } = this.props;
-        const directorsMovies = movies.filter(m => m.Director.Name === Director.Name);
-        return (
-            <Container>
-                <br />
-                <Card align="center">
-                    <h4>Director</h4>
-                    <Card.Body>
-                        <div>
-                            <span className="label">Name: </span>
-                            <span className="value">{Director.Name}</span>
-                        </div>
-                        <div>
-                            <span className="label">Bio: </span>
-                            <span className="value">{Director.Bio}</span>
-                        </div>
-                        <div>
-                            <span className="label">Born: </span>
-                            <span className="value">{Director.Birth}</span>
-                        </div>
-                        <div>
-                            <span className="label">Death: </span>
-                            <span className="value">{Director.Death}</span>
-                        </div>
-                        <br />
-                        <div className="backButton">
-                            <Button size="md" variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </Container>
-        );
-    }
+  render() {
+    const { director, onBackClick, movies } = this.props;
+
+    const birthDateString = director.Birth;
+    const cleanBirthDate = new Date(birthDateString);
+
+    return (
+      <Container>
+        <Row className="director-view justify-content-md-center">
+          <Col md={12} className="director-name">
+            <h1 className="value">{director.Name}</h1>
+            <span className="director-birth">
+              Born: {cleanBirthDate.getFullYear()}, {director.Birth}
+            </span>
+            <p></p>
+            <span className="director-bio">{director.Bio}</span>
+            <div className="director-movies">
+              <h2 className="director-title mt-3">{director.Name} Movies</h2>
+              <Row>
+                {movies.map((m) => {
+                  if (m.Director && m.Director.Name === director.Name) {
+                    return (
+                      <Col sm={12} md={8} lg={2}>
+                        <Link to={`/movies/${m._id}`}>
+                          <Card key={m._id} className="movie-card mt-2 mb-2 ">
+                            <Card.Img className="movie-img" src={m.ImagePath} />
+                          </Card>
+                        </Link>
+                      </Col>
+                    );
+                  }
+                })}
+                <Col md={12}>
+                  <div className="back-button text-center">
+                    <Button
+                      className=" font-weight-bold"
+                      variant="primary"
+                      onClick={() => {
+                        onBackClick(null);
+                      }}
+                    >
+                      Back
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
-DirectorView.proptypes = {
-    Director: PropTypes.shape({
-        Name: PropTypes.string.isRequired,
-        Bio: PropTypes.string,
-        Birth: PropTypes.number,
-        Death: PropTypes.number,
-    }).isRequired,
+DirectorView.propTypes = {
+  director: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string,
+    Bio: PropTypes.string.isRequired,
+    Birth: PropTypes.string.isRequired,
+
+  }),
+  onBackClick: PropTypes.func.isRequired,
 };

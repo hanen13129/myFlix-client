@@ -1,118 +1,79 @@
-.Main-Content-Container {
-  width: 100%;
-}
 
-body {
-  background-color: #131313 !important;
-}
-
-.top-wrapper {
-  display: flow-root;
-}
-
-.logout-button {
-  float: right;
-}
-
-.display-none {
-  display: none;
-}
-
-.navigation-main {
-  display: block;
-  width: 100%;
-  margin-left: 0px;
-}
-
-.navbar-expand-lg .navbar-collapse {
-  flex: inherit;
-}
-
-.dropdown-item {
-  padding: 3px 15px;
-}
 
 .movie-description {
   width: 100%;
 }
-.login-form, .register-form {
-  min-width: 500px;
-  padding: 25px;
-  border: 1px solid #c5c5c5;
-  border-radius: 15px;
-  text-align: left;
-  background-color: #fff;
+.Login {
+  padding: 1rem 0;
 }
 
-.myFlix-logo {
-  padding-bottom: 25px;
+.Login form {
+  margin: 0 auto;
+  max-width: 320px;
 }
 
-.login-wrapper, .register-wrapper {
-  max-width: 650px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.header {
   text-align: center;
+  padding: 1rem;
 }
 
-.btn-lg {
-  width: 100%;
+h2 {
+  color: var(--white) !important;
 }
 
-hr.hr-text {
-  position: relative;
-  border: none;
-  height: 1px;
-  background: #b3b3b3;
-  margin-top: 35px;
-  margin-bottom: 35px;
+.register {
+  color: var(--white);
+  float: right;
+}
+.Register {
+  padding: 1rem 0;
 }
 
-hr.hr-text::before {
-  content: attr(data-content);
-  display: inline-block;
-  background: #fff;
-  font-weight: bold;
-  font-size: 0.85rem;
-  color: #b3b3b3;
-  border-radius: 30rem;
-  padding: 15px 15px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.Register form {
+  margin: 0 auto;
+  max-width: 320px;
 }
-.reg-btns {
+
+.header {
   text-align: center;
+  padding: 1rem;
 }
 
-.btn-md {
-  width: 100%;
+h2 {
+  color: var(--white) !important;
 }
 
-.form-validation-error {
-  font-size: 11px;
-  font-style: italic;
-  color: #ed4441;
+.login {
+  color: var(--white);
+  float: right;
 }
-.meta-text {
-  color: #cecece;
-  font-size: 14px;
-  font-style: italic;
-  padding: 5px 0px;
+.movie-title {
+  color: var(--primary-color);
 }
 
-.favorite-buttons {
-  display: block;
-  width: 35%;
-  margin: 5px;
+.movie-genre, .movie-description, .movie-director, .card-subtitle {
+  color: var(--gray);
 }
 
-.back-btn {
-  display: block;
-  width: 100%;
-  margin-bottom: 15px;
+a {
+  color: var(--primary-color) !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+.movie-poster {
+  float: left;
+  padding-right: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+  /* For mobile phones: */
+  .movie-poster {
+    padding-bottom: 1rem;
+    min-width: 100% !important;
+  }
 }
 :root {
   --toastify-color-light: #fff;
@@ -729,13 +690,49 @@ hr.hr-text::before {
 }
 
 
-.directors-movies {
-  display: block;
-  width: 100%;
+.director-name {
+  color: var(--primary-color);
 }
-.genre-movies {
-  display: block;
-  width: 100%;
+
+.director-bio, .director-birth, .director-death {
+  color: var(--gray);
+}
+
+.back-button {
+  padding: 1rem;
+}
+
+.director-image {
+  float: left;
+  padding-right: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+  /* For mobile phones: */
+  .director-image {
+    padding-bottom: 1rem;
+    min-width: 100%;
+  }
+}
+.genre-name {
+  color: var(--primary-color);
+}
+
+.genre-description {
+  color: var(--gray);
+}
+
+.movie-poster {
+  float: left;
+}
+.details {
+  color: var(--gray);
+}
+
+.userProfile {
+  margin: 0 auto;
+  max-width: 320px;
+  text-align: center;
 }
 .navbar-right {
   float: right;
@@ -767,22 +764,6 @@ hr.hr-text::before {
 .logout-button {
   padding: 5px 10px;
   float: left;
-}
-.edit-acc {
-  float: left;
-}
-
-.profile-wrapper {
-  width: 100%;
-}
-
-.acc-btns {
-  width: 50%;
-  max-width: 300px;
-}
-
-.btn-md {
-  width: 100%;
 }
 .note {
   font-size: 11px;

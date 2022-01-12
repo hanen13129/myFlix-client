@@ -1,4 +1,10 @@
-.genre-movies {
-  display:block;
-  width:100%;
+.genre-name {
+  color: var(--primary-color);
 }
+
+.genre-description {
+  color: var(--gray);
+}
+ .movie-poster {
+   float: left;
+ }

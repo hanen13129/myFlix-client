@@ -1,40 +1,58 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Card, Button, Row, Col } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
+import { Button, Card, Col, Row } from "react-bootstrap";
 
 import "./genre-view.scss";
 
 export class GenreView extends React.Component {
-    render() {
-        const { Genre, onBackClick, movies } = this.props;
-        const genreMovies = movies.filter(m => m.Genre.Name === Genre.Name);
+  render() {
+    const { genre, onBackClick, movies } = this.props;
 
-        return (
-          <Container className="genre-wrapper m-4">
-            <Row  className="text-white">
-              <h2>Genre: {Genre.Name}</h2>
-            </Row>
-            <Row className="text-white">
-             <p className="genre-description">Description: {Genre.Description}</p>
-            </Row>
-            <Row>
-              <Button className="lg" variant="primary" onClick={() => {onBackClick(null);}}>Back to list</Button>
-            </Row>
-            <Row className="text-white mt-5">
-              <h2>Related Movies</h2>
-            </Row>
-            <Row className="text-white">
-              {genreMovies.map((m, i) => <Link to={`/movies/${m.Title}`} className="genre-movies" key={i}>{m.Title}</Link>)}
-            </Row>
-          </Container>
-        );
-      }
+    return (
+      <div className="genre-view">
+        <h1 className="genre-name">{genre.Name}</h1>
+        <div className="genre-description">{genre.Description}</div>
+        <div className="genre-movies">
+          <h2 className="genre-movie-title mt-3">{genre.Name} Movies</h2>
+          <Row>
+            {movies.map((m) => {
+              if (m.Genre && m.Genre.Name === genre.Name) {
+                return (
+                  <Col sm={12} md={8} lg={2}>
+                    <Link to={`/movies/${m._id}`}>
+                      <Card key={m._id} className="genre-card mt-2 mb-2 ">
+                        <Card.Img className="genre-img" src={m.ImagePath} />
+                      </Card>
+                    </Link>
+                  </Col>
+                );
+              }
+            })}
+            <Col md={12}>
+              <div className="back-button text-center">
+                <Button
+                  className=" font-weight-bold"
+                  variant="primary"
+                  onClick={() => {
+                    onBackClick(null);
+                  }}
+                >
+                  Back
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    );
+  }
 }
 
 GenreView.propTypes = {
-    Genre: PropTypes.shape({
-        Name: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
-    }).isRequired,
+  genre: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+  }).isRequired,
 };

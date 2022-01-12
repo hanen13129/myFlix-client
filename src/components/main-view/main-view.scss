@@ -1,13 +1,32 @@
-.main-view {
-  background: #0095c4;
-  width: 100%;
-  display: inline-block;
+html {
+  height: 100%;
 }
 
-.mainNavbar {
-  background: #162b48;
+.card {
+  height: 100%;
+  margin: auto;
 }
 
-body {
-  font-family: "Teko", sans-serif !important;
-} 
+.navbar {
+  background-color: transparent;
+  min-width: 100% !important;
+  margin-bottom: 1rem;
+}
+
+.navbar-dark, .navbar-toggler {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--secondary-color) !important;
+}
+
+.dropdown-item {
+  color: var(--gray) !important;
+}
+
+.dropdown-item:active {
+  color: var(--white) !important;
+  background-color: var(--primary-color) !important;
+}
