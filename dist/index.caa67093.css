@@ -22,7 +22,7 @@ h2 {
 }
 
 .register {
-  color: var(--white);
+  color: var(--Black);
   float: right;
 }
 .Register {
@@ -55,10 +55,9 @@ h2 {
   color: var(--gray);
 }
 
-a {
+/*a {
   color: var(--primary-color) !important;
-}
-
+}*/
 a:hover {
   text-decoration: none !important;
 }
